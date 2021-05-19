@@ -141,16 +141,34 @@ def coleta():
 
     del coleta.listaAno[:1]
 
+######################################################################
+    coleta.listaApBm = []
+
+    for cell in planilha.col(3):
+        if isinstance(cell.value, str):
+            coleta.listaApBm.append(cell.value)
+
+        else:
+            coleta.listaApBm.append(cell.value)
+
+    del coleta.listaApBm[:1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Calling Function coleta
 coleta()
-print(coleta.listaNomes)
-print(coleta.listaCPF)
-print(coleta.listaEndereço)
-print(coleta.listaBairro)
-print(coleta.novaListaNumeroProcesso)
-print(coleta.listaEstadoCivil)
-print(coleta.listaCI)
-print(coleta.listaRenda)
-print(coleta.listaRendaExt)
-print(coleta.listaBT)
-print(coleta.listaBTExt)
-print(coleta.listaAno)
