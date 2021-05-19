@@ -1,4 +1,10 @@
+#!/usr/local/bin/python
+# coding: utf-8
+
 import xlrd
+from docx import Document
+from docx.shared import Inches
+from docx import *
 
 powerPoint = 'Pasta12.xlsx'
 cAP = 'CONTRATO_AP.docx'
@@ -154,9 +160,25 @@ def coleta():
     del coleta.listaApBm[:1]
 
 
+'''
+Strings Que serão Utilizadas
+'''
 
 
+#Write function
+#Abrir documento
+openDoc = docx.Document('CONTRATO_AP.docx')
+print(len(openDoc))
 
+'''
+Início da função de alterações no arquivo
+'''
+
+
+'''
+#Salvar Documento
+saveDoc = document.save(f'{coleta.listaNomes[contador]}-{coleta.listaApBm[contador]}.docx')
+'''
 
 
 
