@@ -1,4 +1,11 @@
 import xlrd
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches
+from docx.shared import Cm
+from docx.enum.text import WD_BREAK
+from docx.enum.text import WD_LINE_SPACING
+from docx.shared import Pt
 
 powerPoint = 'Pasta12.xlsx'
 cAP = 'CONTRATO_AP.docx'
@@ -153,6 +160,21 @@ def coleta():
 
     del coleta.listaApBm[:1]
 
+###################################################################
+#Start Code - Get Paragraphs
+
+doc = Document(cAP)
+paragraphs = doc.paragraphs
+
+for i in paragraphs:
+    print(f'{i.text} - {int(i)}')
+
+
+#2, 6,  
+
+for i in paragraphs:
+    print(i.text)
+    print('---------')
 
 
 
@@ -170,5 +192,4 @@ def coleta():
 
 
 
-#Calling Function coleta
-coleta()
+
