@@ -1,3 +1,5 @@
+import xlrd
+from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches
 from docx.shared import Cm
@@ -242,8 +244,7 @@ apWord = 'CONTRATO_AP_Editable.docx'
 bmWord = 'CONTRATO_BM_Editable.docx'
 
 
-
-def teste(doc):
+def inputToWord(doc, contractsNum):
 
 #Paragraphs Definitons to be appended (Considering the number paragraph model as follows = numberParagraph - 1)
     paragraph_prior = doc.paragraphs[2] 
@@ -271,7 +272,6 @@ def teste(doc):
     if '§ 2º' in listParagraphRenda[contractsNum]:
         listParagraphRenda[contractsNum] = listParagraphRenda[contractsNum].replace('§ 2º', '')
         
-
     else:
         listParagraphRenda[contractsNum].replace('§ 2º', '')
         
