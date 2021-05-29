@@ -136,15 +136,40 @@ def coleta():
     del coleta.listaBTExt[:1]
 ######################################################################
     coleta.listaAno = []
+    coleta.novaListaAno = []
 
     for cell in planilha.col(18):
         if isinstance(cell.value, int):
+            a = cell.value
+            b = str(a)
             coleta.listaAno.append(cell.value)
+
+        elif isinstance(cell.value, float):
+            d = cell.value
+            e = int(d)
+            f = str(e)
+            coleta.listaAno.append(f)
 
         else:
             coleta.listaAno.append(cell.value)
 
     del coleta.listaAno[:1]
+
+
+    timer2 = 0
+    timer3 = 0
+
+    while timer2 != len(coleta.listaAno):
+        if "\n" in coleta.listaAno[timer2]:
+            recoloca = coleta.listaAno[timer2]
+            recoloca = recoloca.replace('\n', '-')
+            coleta.novaListaAno.append(recoloca)
+            timer2 += 1
+
+        else:
+            coleta.novaListaAno.append(coleta.listaAno[timer2])
+            timer2 += 1
+
 ######################################################################
     coleta.listaApBm = []
 
@@ -194,7 +219,7 @@ for i in range (len(coleta.listaNomes)):
     a = paragraphName.replace('«NOME»', f'{coleta.listaNomes[i]}').replace("«ESTADO_CIVIL»", f'{coleta.listaEstadoCivil[i]}').replace("«CI»", f'{coleta.listaCI[i]}').replace("«CPF1»", f'{coleta.listaCPF[i]}').replace("«ENDEREÇO»", f'{coleta.listaEndereço[i]}').replace("«BAIRRO_DE_ORIGEM»", f'{coleta.listaBairro[i]}')
     listParagraphName.append(a) 
 
-    b = paragraphProcesso.replace("«PROCESSO»", f'{coleta.novaListaNumeroProcesso[i]}').replace("ANO", f'{coleta.listaAno[i]}')
+    b = paragraphProcesso.replace("«PROCESSO»", f'{coleta.novaListaNumeroProcesso[i]}').replace("ANO", f'{coleta.novaListaAno[i]}')
     listParagraphProcesso.append(b)
 
     #c = paragraphRenda.replace("")
