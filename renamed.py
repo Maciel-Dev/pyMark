@@ -249,7 +249,7 @@ def inputToWord(doc, contractsNum):
 #Paragraphs Definitons to be appended (Considering the number paragraph model as follows = numberParagraph - 1)
     paragraph_prior = doc.paragraphs[2] 
     paragraph_prior2 = doc.paragraphs[6]
-    paragraph_prior3 = doc.paragraphs[10]
+    paragraph_prior3 = doc.paragraphs[11]
     paragraph_prior4 = doc.paragraphs[55]
 
     #Adding PROCCESS PARAGRAPH
@@ -274,5 +274,7 @@ def inputToWord(doc, contractsNum):
         
     else:
         listParagraphRenda[contractsNum].replace('§ 2º', '')
+
+    paragraphRendaInput = paragraphRenda.add_run(f'{listParagraphRenda[contractsNum]}')
         
     doc.save(fr'docs\{str(coleta.listaNomes[contractsNum])}.docx')
