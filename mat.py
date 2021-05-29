@@ -109,12 +109,18 @@ def coleta():
         if isinstance(cell.value, str):
             coleta.listaRenda.append(cell.value)
 
+        else:
+            coleta.listaRenda.append(cell.value)
+
     del coleta.listaRenda[:1]
 ######################################################################
     coleta.listaRendaExt = []
 
     for cell in planilha.col(9):
         if isinstance(cell.value, str):
+            coleta.listaRendaExt.append(cell.value)
+
+        else:
             coleta.listaRendaExt.append(cell.value)
 
     del coleta.listaRendaExt[:1]
@@ -214,32 +220,31 @@ paragraphValorBt = lisTextos[3]
 listParagraphName = []
 listParagraphProcesso = []
 listParagraphRenda = []
+listaParagraphValorBt = []
+
 
 for i in range (len(coleta.listaNomes)):
     a = paragraphName.replace('«NOME»', f'{coleta.listaNomes[i]}').replace("«ESTADO_CIVIL»", f'{coleta.listaEstadoCivil[i]}').replace("«CI»", f'{coleta.listaCI[i]}').replace("«CPF1»", f'{coleta.listaCPF[i]}').replace("«ENDEREÇO»", f'{coleta.listaEndereço[i]}').replace("«BAIRRO_DE_ORIGEM»", f'{coleta.listaBairro[i]}')
     listParagraphName.append(a) 
 
-    b = paragraphProcesso.replace("«PROCESSO»", f'{coleta.novaListaNumeroProcesso[i]}').replace("ANO", f'{coleta.novaListaAno[i]}')
+    b = paragraphProcesso.replace("«PROCESSO»", f'{coleta.novaListaNumeroProcesso[i]}').replace("«ANO»", f'{coleta.novaListaAno[i]}')
     listParagraphProcesso.append(b)
 
-    #c = paragraphRenda.replace("")
+    c = paragraphRenda.replace("«RENDA»", f'{coleta.listaRenda[i]}').replace("(«EXT_RENDA»)", f'{coleta.listaRendaExt[i]}')
+    listParagraphRenda.append(c)
 
-f = open('dados.txt', 'w')
+    d = paragraphValorBt.replace("«VALOR_BT»", f'{coleta.listaBT[i]}').replace("(«EXT_BT»)", f'{coleta.listaBTExt[i]}')
+    listaParagraphValorBt.append(d)
 
 #Writing .txt file db
 for j in range(len(listParagraphName)):
-    f.write(f'{listParagraphName[j]}\n')
-
-f.close()
-
-g = open('Anos.txt', 'w')
-
-
+    print(listParagraphName[j])
 
 for ano in range(len(listParagraphProcesso)):
     print(listParagraphProcesso[ano])
 
-
+for renda in range(len(listParagraphRenda)):
+    print(listParagraphRenda[renda])
 
 
 
