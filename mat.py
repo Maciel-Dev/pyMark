@@ -167,7 +167,7 @@ doc = Document(cAP)
 paragraphs = doc.paragraphs
 
 for i in paragraphs:
-    print(f'{i.text} - {int(i)}')
+    print(f'{i.text} - {(i)}')
 
 
 #2, 6,  
