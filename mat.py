@@ -7,7 +7,9 @@ from docx.shared import Cm
 from docx.enum.text import WD_BREAK
 from docx.enum.text import WD_LINE_SPACING
 from docx.shared import Pt
+from renamed import teste
 
+'''
 #Archives
 powerPoint = 'Pasta12.xlsx'
 cAP = 'CONTRATO_AP.docx'
@@ -240,33 +242,21 @@ for i in range (len(coleta.listaNomes)):
     listaParagraphValorBt.append(d)
 
 ###### Aplicação dos Parágrafos No Word
-
 apWord = 'CONTRATO_AP_Editable.docx'
+bmWord = 'CONTRATO_BM_Editable.docx'
 
+'''
 
 for contractsNum in range (len(coleta.listaNomes)):
 
-    if "AP" in coleta.listaApBm[contractsNum]:
-
+    if "AP" in coleta.listaApBm[contractsNum]: #Processo de AP
         doc = Document(apWord)
-        paragraph_prior = doc.paragraphs[2]
-        paragraph_prior2 = doc.paragraphs[6]
-        paragraph_prior3 = doc.paragraphs[11]
-        paragraph_prior4 = doc.paragraphs[55]
+        teste(doc)
 
-        paragraphProcesso = paragraph_prior.insert_paragraph_before()
-        paragraphProcessoInput = paragraphProcesso.add_run(f'{listParagraphProcesso[contractsNum]}')
-        paragraphProcessoInput.bold = True
-        paragraphProcesso.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        
+    elif "BM" in coleta.listaApBm[contractsNum]:
+        doc = Document(bmWord)
+        teste(doc)
 
-        doc.save(fr'docs\{str(coleta.listaNomes[contractsNum])}.docx')
-        
-
-        
-        
-    else:
-        continue
 
 
 
