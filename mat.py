@@ -196,6 +196,7 @@ coleta()
 
 lisTextos = []
 
+#Get every paragraph and append to lisTextos
 for i in paragraphs:
     if "PROCESSO" in i.text:
         lisTextos.append(i.text)
@@ -210,19 +211,20 @@ for i in paragraphs:
         lisTextos.append(i.text)
 
 
-paragraphProcesso = lisTextos[0]
+#Creates lists for identify the paragraphs that needs changes
+#Related to lisTextos
+paragraphProcesso = lisTextos[0] 
 paragraphName = lisTextos[1]
 paragraphRenda = lisTextos[2]
 paragraphValorBt = lisTextos[3]
 
 #Creates all My paragraghs
-
 listParagraphName = []
 listParagraphProcesso = []
 listParagraphRenda = []
 listaParagraphValorBt = []
 
-
+#Repetição ÚNICA para acrescentar parágrafos em listas
 for i in range (len(coleta.listaNomes)):
     a = paragraphName.replace('«NOME»', f'{coleta.listaNomes[i]}').replace("«ESTADO_CIVIL»", f'{coleta.listaEstadoCivil[i]}').replace("«CI»", f'{coleta.listaCI[i]}').replace("«CPF1»", f'{coleta.listaCPF[i]}').replace("«ENDEREÇO»", f'{coleta.listaEndereço[i]}').replace("«BAIRRO_DE_ORIGEM»", f'{coleta.listaBairro[i]}')
     listParagraphName.append(a) 
@@ -236,15 +238,7 @@ for i in range (len(coleta.listaNomes)):
     d = paragraphValorBt.replace("«VALOR_BT»", f'{coleta.listaBT[i]}').replace("(«EXT_BT»)", f'{coleta.listaBTExt[i]}')
     listaParagraphValorBt.append(d)
 
-#Writing .txt file db
-for j in range(len(listParagraphName)):
-    print(listParagraphName[j])
-
-for ano in range(len(listParagraphProcesso)):
-    print(listParagraphProcesso[ano])
-
-for renda in range(len(listParagraphRenda)):
-    print(listParagraphRenda[renda])
+###### Aplicação dos Parágrafos No Word
 
 
 
