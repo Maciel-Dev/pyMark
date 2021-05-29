@@ -1,3 +1,4 @@
+#Imports
 import xlrd
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -239,6 +240,34 @@ for i in range (len(coleta.listaNomes)):
     listaParagraphValorBt.append(d)
 
 ###### Aplicação dos Parágrafos No Word
+
+apWord = 'CONTRATO_AP_Editable.docx'
+
+
+for contractsNum in range (len(coleta.listaNomes)):
+
+    if "AP" in coleta.listaApBm[contractsNum]:
+
+        doc = Document(apWord)
+        paragraph_prior = doc.paragraphs[2]
+        paragraph_prior2 = doc.paragraphs[6]
+        paragraph_prior3 = doc.paragraphs[11]
+        paragraph_prior4 = doc.paragraphs[55]
+
+        paragraphProcesso = paragraph_prior.insert_paragraph_before()
+        paragraphProcessoInput = paragraphProcesso.add_run(f'{listParagraphProcesso[contractsNum]}')
+        paragraphProcessoInput.bold = True
+        paragraphProcesso.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        
+
+        doc.save(fr'docs\{str(coleta.listaNomes[contractsNum])}.docx')
+        
+
+        
+        
+    else:
+        continue
+
 
 
 
