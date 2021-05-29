@@ -7,13 +7,15 @@ from docx.enum.text import WD_BREAK
 from docx.enum.text import WD_LINE_SPACING
 from docx.shared import Pt
 
+#Archives
 powerPoint = 'Pasta12.xlsx'
 cAP = 'CONTRATO_AP.docx'
 cBM = 'CONTRATO_BM.docx'
-
+#Start Run Archives Planilha
 workBook = xlrd.open_workbook(powerPoint)
 planilha = workBook.sheet_by_name('PRONTOS')
 
+#Main Function
 
 def coleta():
 #Coletar nomes
@@ -24,7 +26,6 @@ def coleta():
             coleta.listaNomes.append(cell.value)
 
     del coleta.listaNomes[0:1]
-
 ######################################################################
     coleta.listaCPF = []
 
@@ -33,7 +34,6 @@ def coleta():
             coleta.listaCPF.append(cell.value)
 
     del coleta.listaCPF[0:1]
-
 ######################################################################
     coleta.listaEndereço = []
 
@@ -42,7 +42,6 @@ def coleta():
             coleta.listaEndereço.append(cell.value)
 
     del coleta.listaEndereço[0:1]
-
 ######################################################################
     coleta.listaBairro = []
 
@@ -60,10 +59,15 @@ def coleta():
         if isinstance(cell.value, str):
             coleta.listaNumeroProcesso.append(cell.value)
 
+        elif isinstance(cell.value, float):
+            a = cell.value
+            b = int(a)
+            c = str(b)
+            coleta.listaNumeroProcesso.append(c)
+
     del coleta.listaNumeroProcesso[0:1]
 
 
-    coleta.novaListaNumeroProcesso
     timer2 = 0
     timer3 = 0
 
@@ -77,7 +81,6 @@ def coleta():
         else:
             coleta.novaListaNumeroProcesso.append(coleta.listaNumeroProcesso[timer2])
             timer2 += 1
-
 ######################################################################
 #Estado Civil
     coleta.listaEstadoCivil = []
@@ -87,14 +90,15 @@ def coleta():
             coleta.listaEstadoCivil.append(cell.value)
 
     del coleta.listaEstadoCivil[:1]
-
 ######################################################################
-#Funcionou aqui pq Tem letra na celula (str)
-
+#Funcionou aqui pq Tem letra na celula (str) - Porém, uma das células só possui número
     coleta.listaCI = []
 
     for cell in planilha.col(5):
         if isinstance(cell.value, str):
+            coleta.listaCI.append(cell.value)
+
+        else: #Acrescenta qualquer outro tipo de valor à minha lista
             coleta.listaCI.append(cell.value)
 
     del coleta.listaCI[:1]
@@ -107,7 +111,6 @@ def coleta():
 
     del coleta.listaRenda[:1]
 ######################################################################
-
     coleta.listaRendaExt = []
 
     for cell in planilha.col(9):
@@ -116,7 +119,6 @@ def coleta():
 
     del coleta.listaRendaExt[:1]
 ######################################################################
-
     coleta.listaBT = []
 
     for cell in planilha.col(10):
@@ -124,9 +126,7 @@ def coleta():
             coleta.listaBT.append(cell.value)
 
     del coleta.listaBT[:1]
-
 ######################################################################
-
     coleta.listaBTExt = []
 
     for cell in planilha.col(11):
@@ -134,9 +134,7 @@ def coleta():
             coleta.listaBTExt.append(cell.value)
 
     del coleta.listaBTExt[:1]
-
 ######################################################################
-
     coleta.listaAno = []
 
     for cell in planilha.col(18):
@@ -147,7 +145,6 @@ def coleta():
             coleta.listaAno.append(cell.value)
 
     del coleta.listaAno[:1]
-
 ######################################################################
     coleta.listaApBm = []
 
@@ -159,27 +156,63 @@ def coleta():
             coleta.listaApBm.append(cell.value)
 
     del coleta.listaApBm[:1]
-
 ###################################################################
 #Start Code - Get Paragraphs
 
 doc = Document(cAP)
 paragraphs = doc.paragraphs
+coleta()
+
+lisTextos = []
 
 for i in paragraphs:
-    print(f'{i.text} - {(i)}')
+    if "PROCESSO" in i.text:
+        lisTextos.append(i.text)
+
+    elif "NOME" in i.text:
+        lisTextos.append(i.text)
+
+    elif "RENDA" in i.text:
+        lisTextos.append(i.text)
+
+    elif "VALOR_BT" in i.text:
+        lisTextos.append(i.text)
 
 
-#2, 6,  
+paragraphProcesso = lisTextos[0]
+paragraphName = lisTextos[1]
+paragraphRenda = lisTextos[2]
+paragraphValorBt = lisTextos[3]
 
-for i in paragraphs:
-    print(i.text)
-    print('---------')
+#Creates all My paragraghs
+
+listParagraphName = []
+listParagraphProcesso = []
+listParagraphRenda = []
+
+for i in range (len(coleta.listaNomes)):
+    a = paragraphName.replace('«NOME»', f'{coleta.listaNomes[i]}').replace("«ESTADO_CIVIL»", f'{coleta.listaEstadoCivil[i]}').replace("«CI»", f'{coleta.listaCI[i]}').replace("«CPF1»", f'{coleta.listaCPF[i]}').replace("«ENDEREÇO»", f'{coleta.listaEndereço[i]}').replace("«BAIRRO_DE_ORIGEM»", f'{coleta.listaBairro[i]}')
+    listParagraphName.append(a) 
+
+    b = paragraphProcesso.replace("«PROCESSO»", f'{coleta.novaListaNumeroProcesso[i]}').replace("ANO", f'{coleta.listaAno[i]}')
+    listParagraphProcesso.append(b)
+
+    #c = paragraphRenda.replace("")
+
+f = open('dados.txt', 'w')
+
+#Writing .txt file db
+for j in range(len(listParagraphName)):
+    f.write(f'{listParagraphName[j]}\n')
+
+f.close()
+
+g = open('Anos.txt', 'w')
 
 
 
-
-
+for ano in range(len(listParagraphProcesso)):
+    print(listParagraphProcesso[ano])
 
 
 
