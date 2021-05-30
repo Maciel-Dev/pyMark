@@ -8,6 +8,7 @@ from docx.enum.text import WD_LINE_SPACING
 from docx.shared import Pt
 
 
+
 #Archives
 powerPoint = 'Pasta12.xlsx'
 cAP = 'CONTRATO_AP.docx'
@@ -244,13 +245,21 @@ apWord = 'CONTRATO_AP_Editable.docx'
 bmWord = 'CONTRATO_BM_Editable.docx'
 
 
-def inputToWord(doc, contractsNum):
+
+def inputToWord(doc, contractsNum, identity):
+    if identity == "BM":
+        paragraph_prior3 = doc.paragraphs[11]
+        paragraph_prior4 = doc.paragraphs[51]
+        paragraph_prior2 = doc.paragraphs[5]
+
+    else:
+        paragraph_prior3 = doc.paragraphs[10]
+        paragraph_prior4 = doc.paragraphs[53]
+        paragraph_prior2 = doc.paragraphs[6]
+
 
 #Paragraphs Definitons to be appended (Considering the number paragraph model as follows = numberParagraph - 1)
     paragraph_prior = doc.paragraphs[2] 
-    paragraph_prior2 = doc.paragraphs[6]
-    paragraph_prior3 = doc.paragraphs[11]
-    paragraph_prior4 = doc.paragraphs[55]
 
     #Adding PROCCESS PARAGRAPH
     paragraphProcesso = paragraph_prior.insert_paragraph_before()
@@ -274,7 +283,11 @@ def inputToWord(doc, contractsNum):
         
     else:
         listParagraphRenda[contractsNum].replace('§ 2º', '')
-
     paragraphRendaInput = paragraphRenda.add_run(f'{listParagraphRenda[contractsNum]}')
         
+
+    #Adding ValorBt PARAGRAPH
+    paragraphValorBt = paragraph_prior4.insert_paragraph_before()
+    paragraphValorBtInput = paragraphValorBt.add_run(f'{listaParagraphValorBt[contractsNum]}')
+
     doc.save(fr'docs\{str(coleta.listaNomes[contractsNum])}.docx')
